@@ -1,8 +1,8 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import type React from "react";
 import Home from "../pages/Home/Home";
-import NoFoundPage from "../pages/404-page/NoFound";
 import Categories from "@/pages/categories/Categories";
+import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
 // 1. قمنا بإضافة الاستيراد المفقود هنا
 // import Categories from "../pages/Categories/Categories";
 
@@ -11,34 +11,30 @@ type CustomRouteType = {
   path: string;
   element: React.ReactNode;
   children?: CustomRouteType[];
+  errorElement?: React.ReactNode;
 };
 
 const router: CustomRouteType[] = [
   {
     path: "/",
     element: <Home />,
+    errorElement: <GlobalErrorBoundary />,
     children: [
       {
         path: "categories",
         element: <Categories />,
+      },
+      {
+        path: "categories/products",
+        element: <div> Product </div>,
         children: [
           {
-            path: "products",
-            element: <div> After </div>,
-            children: [
-              {
-                path: ":catPrefix",
-                element: <div>صفحة المنتجات حسب التصنيف</div>, // 3. تم إصلاح الفراغ هنا
-              },
-            ],
+            path: ":catPrefix",
+            element: <div>صفحة المنتجات حسب التصنيف</div>, // 3. تم إصلاح الفراغ هنا
           },
         ],
       },
     ],
-  },
-  {
-    path: "*",
-    element: <NoFoundPage />,
   },
 ];
 

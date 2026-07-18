@@ -3,7 +3,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
+  // BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Link } from "react-router-dom";
@@ -12,21 +12,19 @@ function BreadcrumbBasic() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <Link to={"/"}>
-            <BreadcrumbLink>Home</BreadcrumbLink>
-          </Link>
+          <BreadcrumbLink render={<Link to={"/"}></Link>}>Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <Link to={"/categories"}>
-            <BreadcrumbLink>Categories</BreadcrumbLink>
-          </Link>
+          <BreadcrumbLink render={<Link to={"/categories"}></Link>}>
+            Categories
+          </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <Link to={"/categories/products"}>
-            <BreadcrumbLink>Products</BreadcrumbLink>
-          </Link>
+          <BreadcrumbLink render={<Link to={"/categories/products"}></Link>}>
+            Products
+          </BreadcrumbLink>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

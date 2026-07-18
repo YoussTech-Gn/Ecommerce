@@ -20,7 +20,8 @@ export default defineConfig({
       "@services": path.resolve(__dirname, "./src/services"),
       "@pages": path.resolve(__dirname, "./src/pages"),
       "@redux": path.resolve(__dirname, "./src/redux"),
-      "@types": path.resolve(__dirname, "./src/types"),
+      "@customTypes": path.resolve(__dirname, "./src/types"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
     },
   },
 });

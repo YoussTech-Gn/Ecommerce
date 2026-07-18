@@ -37,7 +37,8 @@
       "@services/*": ["./src/services/*"],
       "@pages/*": ["./src/pages/*"],
       "@redux/*": ["./src/redux/*"],
-      "@types/*": ["./src/types/*"]
+      "@customTypes/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["src"]

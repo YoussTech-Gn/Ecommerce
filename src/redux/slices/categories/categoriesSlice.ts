@@ -1,6 +1,6 @@
 import type {
   CategoriesType,
-  InitialCategoriesType, // تم تصحيح الإملاء هنا وفي الأسفل
+  InitialCategoriesType,
 } from "@/types/categoriesTypes";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -16,8 +16,10 @@ const categoriesSlice = createSlice({
   name: "categoriesSlice",
   initialState,
   reducers: {
-    getCategories: (state, action: PayloadAction<CategoriesType[]>) => {
-      state.categories = action.payload;
+    categoriesCleanUp: (state) => {
+      state.categories = [];
+      state.error = null;
+      state.loading = "idle";
     },
   },
   extraReducers(builder) {
@@ -25,10 +27,13 @@ const categoriesSlice = createSlice({
       .addCase(actGetCategories.pending, (state) => {
         state.loading = "pending";
       })
-      .addCase(actGetCategories.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.categories = action.payload;
-      })
+      .addCase(
+        actGetCategories.fulfilled,
+        (state, action: PayloadAction<CategoriesType[]>) => {
+          state.loading = "succeeded";
+          state.categories = action.payload;
+        },
+      )
       .addCase(actGetCategories.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = "failed";
@@ -36,5 +41,5 @@ const categoriesSlice = createSlice({
   },
 });
 
-export const { getCategories } = categoriesSlice.actions;
+export const { categoriesCleanUp } = categoriesSlice.actions;
 export default categoriesSlice.reducer;
