@@ -9,8 +9,8 @@ export interface ProductTypes extends Omit<CategoriesType, "prefix"> {
   cat_prefix: string; // Your custom product prefix reference
 }
 
-export type InitialProductsType = {
+export interface InitialProductsType {
   loading: "idle" | "pending" | "succeeded" | "failed";
   products: ProductTypes[];
   error: null | string;
-};
+}

@@ -12,11 +12,13 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import wishListSlice from "../slices/wishList/wishList";
 import storage from "redux-persist/lib/storage";
 
+const storageEngine = storage.default || storage;
 const cartPersistConfig = {
   key: "cart",
-  storage,
+  storage: storageEngine,
   whitelist: ["items"],
 };
 
@@ -25,8 +27,10 @@ const rootReducer = combineReducers({
   categories: categoriesSlice,
   products: productsSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
+  wishList: wishListSlice,
 });
 
+console.log(cartPersistConfig);
 const store = configureStore({
   reducer: rootReducer,
   // 🛡️ Safety Guard: Mute Redux Toolkit's serializability warnings for redux-persist actions
@@ -40,7 +44,7 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export default { store, persistor };
+export { store, persistor };
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

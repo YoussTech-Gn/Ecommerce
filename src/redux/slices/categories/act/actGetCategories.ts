@@ -1,8 +1,7 @@
+import { apiClient } from "@/services/Api";
 import type { CategoriesType } from "@/types/categoriesTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { isAxiosError } from "axios";
-
-const URL = "http://localhost:4000/categories";
+import { isAxiosError } from "axios";
 
 type ResponseDataType = {
   data: CategoriesType[];
@@ -17,7 +16,7 @@ const actGetCategories = createAsyncThunk<
   const { rejectWithValue } = thunkAPI;
   //
   try {
-    const res = await axios.get<ResponseDataType["data"]>(URL);
+    const res = await apiClient.get<ResponseDataType["data"]>("categories");
     return res.data;
   } catch (error) {
     if (isAxiosError(error))

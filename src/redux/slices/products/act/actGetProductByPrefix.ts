@@ -1,8 +1,7 @@
+import { apiClient } from "@/services/Api";
 import type { ProductTypes } from "@/types/productsTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { isAxiosError } from "axios";
-
-const URL = "http://localhost:4000/products?cat_prefix=";
+import { isAxiosError } from "axios";
 
 type ResponseDataType = {
   data: ProductTypes[];
@@ -17,7 +16,9 @@ const actGetProductByCatPrefix = createAsyncThunk<
   const { rejectWithValue } = thunkAPI;
   //
   try {
-    const res = await axios.get<ResponseDataType["data"]>(`${URL}${prefix}`);
+    const res = await apiClient.get<ResponseDataType["data"]>(
+      `products?cat_prefix="${prefix}`,
+    );
     return res.data;
   } catch (error) {
     if (isAxiosError(error))
