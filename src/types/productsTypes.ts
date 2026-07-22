@@ -7,6 +7,8 @@ import type { CategoriesType } from "./categoriesTypes";
 export interface ProductTypes extends Omit<CategoriesType, "prefix"> {
   price: string;
   cat_prefix: string; // Your custom product prefix reference
+  maxium: number;
+  quantity: number;
 }
 
 export interface InitialProductsType {

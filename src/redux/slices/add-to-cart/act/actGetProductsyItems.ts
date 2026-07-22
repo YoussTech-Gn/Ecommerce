@@ -1,3 +1,4 @@
+import type { RootState } from "@/redux/store/store";
 import { apiClient } from "@/services/Api";
 import type { ProductTypes } from "@/types/productsTypes";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -6,12 +7,12 @@ import { isAxiosError } from "axios";
 // 💡 المبرمج الحقيقي يمرر مصفوفة الأرقام (الـ IDs) كـ Argument للـ Thunk
 export const actGetProductsByItems = createAsyncThunk<
   ProductTypes[], // 1. نوع البيانات المرتجعة في حال النجاح (قائمة المنتجات الكاملة للسلة)
-  Record<string, number>, // 2. نوع المدخلات القادمة من الـ Cart (مصفوفة الـ IDs الممررة)
+  void,
   { rejectValue: string } // 3. نوع رسالة الخطأ
->("cart/actGetProductsByItems", async (cart, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI;
-
-  const cartIds = Object.keys(cart);
+>("cart/actGetProductsByItems", async (_, thunkAPI) => {
+  const { rejectWithValue, getState } = thunkAPI;
+  const { cart } = getState() as RootState;
+  const cartIds = Object.keys(cart.items);
   if (!cartIds.length) return []; // حماية سريعة: لو السلة فارغة لا تتصل بالسيرفر اصلاً
 
   try {
@@ -22,8 +23,10 @@ export const actGetProductsByItems = createAsyncThunk<
     const res = await apiClient.get<ProductTypes[]>(
       `/products?${targetParams}`,
     );
-
-    return res.data;
+    const def = res.data.map((pro) => {
+      return { ...pro, quantity: cart.items[pro.id] || 1 }; // إذا لمגد الكمية، اجعلها 1 كقيمة افتراضية
+    });
+    return def;
   } catch (error) {
     if (isAxiosError(error)) {
       return rejectWithValue(error.response?.data?.message || error.message);

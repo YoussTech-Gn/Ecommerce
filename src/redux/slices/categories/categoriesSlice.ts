@@ -42,4 +42,5 @@ const categoriesSlice = createSlice({
 });
 
 export const { categoriesCleanUp } = categoriesSlice.actions;
+export { actGetCategories };
 export default categoriesSlice.reducer;

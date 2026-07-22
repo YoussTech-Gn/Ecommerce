@@ -38,7 +38,9 @@
       "@pages/*": ["./src/pages/*"],
       "@redux/*": ["./src/redux/*"],
       "@customTypes/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@style/*": ["./src/style/*"],
+      "@ui/*": ["./src/components/ui/*"]
     }
   },
   "include": ["src"]

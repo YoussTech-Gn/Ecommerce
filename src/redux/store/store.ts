@@ -30,7 +30,6 @@ const rootReducer = combineReducers({
   wishList: wishListSlice,
 });
 
-console.log(cartPersistConfig);
 const store = configureStore({
   reducer: rootReducer,
   // 🛡️ Safety Guard: Mute Redux Toolkit's serializability warnings for redux-persist actions

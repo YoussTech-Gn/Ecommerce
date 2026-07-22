@@ -1,77 +1,53 @@
-# React + TypeScript + Vite
+Folder Structure :
+المجلدات الفرعية داخل src:
+assets/ (الأصول والوسائط):
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+محتواه: الملفات الثابتة الخاصة بالمشروع مثل الصور (.png, .jpg)، الأيقونات (.svg)، الشعارات (Logos)، والخطوط (Fonts).
 
-Currently, two official plugins are available:
+components/ (المكونات التفاعلية):
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+common/: المكونات العامة المعاد استخدامها في عدة أماكن (مثل: كارت المنتج ProductCard، أزرار الشراء، الهيدر Header، الفوتر Footer).
 
-## React Compiler
+feedBack/: مكونات التفاعل والتنبيهات (مثل: الشاشات الهيكلية للتحميل Skeletons، دوائر التحميل Spinners، ورسائل الأخطاء أو النجاح Toasts/Alerts).
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+layout/: التخطيطات الهيكلية للصفحات (مثل: الهيكل العام للموقع MainLayout الذي يحوي النافبار والفوتر).
 
-Note: This will impact Vite dev & build performances.
+Libraries/: المكونات الملتفة حول مكتبات خارجية وتخصيصها (مثل: إعدادات مكتبات الأنيميشن أو السلايدر Swiper).
 
-## Expanding the ESLint configuration
+ui/: مكونات الواجهة الأساسية والذرية (غالباً مكتبات مثل Shadcn/UI أو Radix)، مثل: Button, Dialog, Input, Dropdown.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+hooks/ (الخطافات المخصصة - Custom Hooks):
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+محتواه: الدوال المخصصة لـ React لتبسيط الـ Logic (مثل: useAppDispatch و useAppSelector المخصصة للتايب سكريبت، أو useDebounce).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+lib/ (المكتبات والإعدادات الفرعية):
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+محتواه: ملفات إعداد وتكويين المكتبات الخارجية (مثل دالة الدمج cn() الخاصة بـ Tailwind/Shadcn، أو إعدادات قاعدة البيانات/الأدوات الخدمية).
 
-```
+pages/ (الصفحات الرئيسية):
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+محتواه: مكونات الصفحات الكاملة المعروضة عبر الرابط/الراوتر (مثل: صفحة الرئيسية Home، صفحة المنتجات Products، صفحة المفضلة Wishlist، وصفحة السلة Cart).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+redux/ (إدارة الحالة العالمية - Global State):
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+محتواه: كل ما يتعلق بـ Redux Toolkit (ملف الـ store.ts الرئيسي، والـ slices/ مثل wishListSlice, cartSlice, والـ thunk/ للطلبات المزامنة مع السيرفر).
 
-```
+routes/ (التوجيه والروابط):
+
+محتواه: إعدادات التنقل بين الصفحات عبر React Router (مثل ملف AppRouter.tsx والمسارات المحمية ProtectedRoute).
+
+services/ (خدمات الاتصال بالسيرفر):
+
+محتواه: ملفات إعداد العميل axios (مثل apiClient.ts) والدوال الخاصة بطلب البيانات من الـ API مباشرة.
+
+style/ (التنسيقات):
+
+محتواه: ملفات الـ CSS أو SCSS العالمية، القواعد الأساسية للمظهر، متغيّرات الألوان، ومتغيرات Tailwind.
+
+types/ (الأنماط والتسميات - TypeScript Types):
+
+محتواه: ملفات التعريف والواجهات (Interfaces / Types) لبيانات التطبيق (مثل: productTypes.ts, categoryTypes.ts, userTypes.ts).
+
+utils/ (الدوال المساعدة - Utility Functions):
+
+محتواه: دوال برمجية بحتة لا تحتوي على JSX (مثل: دالة تنسيق العملة formatPrice، دالة حساب الضريبة، أو دالة التحقق من البريد الإلكتروني).

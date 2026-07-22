@@ -1,32 +1,35 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
-import type React from "react";
 import Home from "../pages/Home/Home";
 import Categories from "@/pages/categories/Categories";
 import GlobalErrorBoundary from "@/components/GlobalErrorBoundary";
+import MainLayout from "@/components/layout/MainLayout";
+import Products from "@/pages/products/Products";
+import Cart from "@/pages/cart/Cart";
 // 1. قمنا بإضافة الاستيراد المفقود هنا
 // import Categories from "../pages/Categories/Categories";
 
-// 2. يفضل استخدام React.ReactNode ليكون المكون مرناً ويقبل أي عنصر ريأكت
-type CustomRouteType = {
-  path: string;
-  element: React.ReactNode;
-  children?: CustomRouteType[];
-  errorElement?: React.ReactNode;
-};
-
-const router: CustomRouteType[] = [
+const router: RouteObject[] = [
   {
     path: "/",
-    element: <Home />,
+    element: <MainLayout />,
+    // index: <Home />,
     errorElement: <GlobalErrorBoundary />,
     children: [
+      {
+        index: true, // 💡 صفحة Home هي الصفحة الافتراضية للرابط الرئيسي "/"
+        element: <Home />,
+      },
       {
         path: "categories",
         element: <Categories />,
       },
       {
+        path: "carts",
+        element: <Cart />,
+      },
+      {
         path: "categories/products",
-        element: <div> Product </div>,
+        element: <Products />,
         children: [
           {
             path: ":catPrefix",

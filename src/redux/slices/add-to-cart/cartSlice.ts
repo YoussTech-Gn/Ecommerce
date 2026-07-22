@@ -22,6 +22,24 @@ const cartSlice = createSlice({
       const productId = action.payload;
       state.items[productId] = (state.items[productId] || 0) + 1; // تُسمى Short-circuit evaluation
     },
+    removeToCart: (state, action: PayloadAction<number>) => {
+      const productId = action.payload;
+
+      if (state.items[productId] > 1) {
+        state.items[productId] -= 1;
+      } else {
+        delete state.items[productId]; // حذف المنتج من السلة إذا وصل رقمه إلى صفر
+      }
+    },
+    cleanUpCart: (state) => {
+      state.productsFullInfo = [];
+    },
+    removeCart: (state, action) => {
+      state.productsFullInfo = state.productsFullInfo.filter(
+        (cart) => cart.id !== action.payload,
+      );
+      delete state.items[action.payload];
+    },
   },
   extraReducers(builder) {
     builder
@@ -40,5 +58,6 @@ const cartSlice = createSlice({
 });
 
 export { getCartTotalPriceSelector, getCartTotalQuantitySelector };
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, cleanUpCart, removeCart, removeToCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

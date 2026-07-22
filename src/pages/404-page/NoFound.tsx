@@ -12,7 +12,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Kbd } from "@/components/ui/kbd";
 import { Link } from "react-router-dom";
 
 function NoFoundPage() {
@@ -35,9 +34,7 @@ function NoFoundPage() {
             <InputGroupAddon>
               <SearchIcon />
             </InputGroupAddon>
-            <InputGroupAddon align="inline-end">
-              <Kbd>/</Kbd>
-            </InputGroupAddon>
+            <InputGroupAddon align="inline-end"></InputGroupAddon>
           </InputGroup>
           <EmptyDescription>
             Need help? <Link to={"/"}>Contact support</Link>
